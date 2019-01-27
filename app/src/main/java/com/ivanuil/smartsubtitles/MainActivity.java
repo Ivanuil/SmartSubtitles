@@ -15,7 +15,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
+
+import com.ivanuil.smartsubtitles.fragments.FilmsFragment;
+import com.ivanuil.smartsubtitles.fragments.SeriesFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {

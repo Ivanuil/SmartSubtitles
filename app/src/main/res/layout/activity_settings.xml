@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,30 +8,38 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Path to films folder" />
+            android:text="Path to films folder"
+            android:textAllCaps="true"
+            android:textStyle="bold" />
+
         <EditText
             android:id="@+id/path_films"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textUri"
             android:text=""
-            android:ems="10" />
+            android:textAlignment="viewStart" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Path to series folder" />
+            android:text="Path to series folder"
+            android:textAllCaps="true"
+            android:textStyle="bold" />
+
         <EditText
             android:id="@+id/path_series"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text=""
-            android:ems="10" />
+            android:ems="10"
+            android:text="" />
 
     </LinearLayout>
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

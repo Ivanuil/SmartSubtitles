@@ -10,7 +10,6 @@ public class SettingsActivity extends AppCompatActivity {
     public static final String APP_PREFERENCES = "appPreferences";
     public static final String APP_PREFERENCES_FILMS_FOLDER = "filmsFolder";
     public static final String APP_PREFERENCES_SERIES_FOLDER = "seriesFolder";
-    //public static final String APP_PREFERENCES_SUBTITLES_FOLDER = "seriesFolder";
     SharedPreferences mSettings;
     EditText editFilmsPath;
     EditText editSeriesPath;
@@ -40,5 +39,6 @@ public class SettingsActivity extends AppCompatActivity {
         editor.putString(APP_PREFERENCES_FILMS_FOLDER, editFilmsPath.getText().toString());
         editor.putString(APP_PREFERENCES_SERIES_FOLDER, editSeriesPath.getText().toString());
         editor.apply();
+
     }
 }

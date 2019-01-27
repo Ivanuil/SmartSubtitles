@@ -9,12 +9,14 @@ public class Film {
     private String fileName;
     private String imageURL;
     private String fileSize;
+    private String path;
 
     public Film(File file) {
         setFilmName(file.getName());
         this.fileSize = size(file.length());
         this.fileName = file.getName();
         this.imageURL = null;
+        this.path = file.getPath();
     }
 
 
@@ -66,4 +68,7 @@ public class Film {
         return fileSize;
     }
 
+    public String getPath() {
+        return path;
+    }
 }

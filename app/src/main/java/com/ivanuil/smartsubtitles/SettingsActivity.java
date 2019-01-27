@@ -7,28 +7,25 @@ import android.os.Bundle;
 import android.widget.EditText;
 
 public class SettingsActivity extends AppCompatActivity {
-    public static final String APP_PREFERENCES = "appPreferences";
-    public static final String APP_PREFERENCES_FILMS_FOLDER = "filmsFolder";
-    public static final String APP_PREFERENCES_SERIES_FOLDER = "seriesFolder";
+    public static String APP_PREFERENCES;
+    public static String APP_PREFERENCES_FILMS_FOLDER;
     SharedPreferences mSettings;
     EditText editFilmsPath;
-    EditText editSeriesPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+        APP_PREFERENCES = getString(R.string.APP_PREFERENCES);
+        APP_PREFERENCES_FILMS_FOLDER = getString(R.string.APP_PREFERENCES_FILMS_FOLDER);
 
         editFilmsPath = (EditText)findViewById(R.id.path_films);
-        editSeriesPath = (EditText)findViewById(R.id.path_series);
 
         mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
         if (mSettings.contains(APP_PREFERENCES_FILMS_FOLDER)) {
             editFilmsPath.setText(mSettings.getString(APP_PREFERENCES_FILMS_FOLDER, ""));
         }
-        if (mSettings.contains((APP_PREFERENCES_SERIES_FOLDER))) {
-           editSeriesPath.setText(mSettings.getString(APP_PREFERENCES_SERIES_FOLDER, ""));
-        }
+
     }
 
     @Override
@@ -37,7 +34,6 @@ public class SettingsActivity extends AppCompatActivity {
 
         SharedPreferences.Editor editor = mSettings.edit();
         editor.putString(APP_PREFERENCES_FILMS_FOLDER, editFilmsPath.getText().toString());
-        editor.putString(APP_PREFERENCES_SERIES_FOLDER, editSeriesPath.getText().toString());
         editor.apply();
 
     }

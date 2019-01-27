@@ -15,8 +15,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Path to films folder"
-            android:textAllCaps="true"
+            android:textAllCaps="false"
+            android:textColor="@color/colorMainText"
+            android:textSize="24sp"
             android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorMainText"
+            android:textStyle="bold"
+            android:text="Final path to your folder will look like: \n Internal Storage + you path"/>
 
         <EditText
             android:id="@+id/path_films"
@@ -26,20 +35,6 @@
             android:inputType="textUri"
             android:text=""
             android:textAlignment="viewStart" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Path to series folder"
-            android:textAllCaps="true"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/path_series"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:text="" />
 
     </LinearLayout>
 </LinearLayout>

@@ -25,6 +25,8 @@ import java.util.List;
 
 public class FilmsFragment extends Fragment {
 
+    public static String INTENT_FILM_NAME;
+    public static String INTENT_FILM_PATH;
     private RecyclerView recyclerView;
     private FilmAdapter filmAdapter;
     public String pathname = Environment.getExternalStorageDirectory().getPath() + "/Movies/";
@@ -32,7 +34,10 @@ public class FilmsFragment extends Fragment {
     File[] filesList;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        INTENT_FILM_NAME = getString(R.string.INTENT_FILM_NAME);
+        INTENT_FILM_PATH = getString(R.string.INTENT_FILM_PATH);
 
         File file = new File(pathname);
         if (!file.exists()) {
@@ -54,7 +59,8 @@ public class FilmsFragment extends Fragment {
                     @Override
                     public void onItemClick(View view, int position) {
                         Intent intent = new Intent(getContext(), PlayerSetterActivity.class);
-                        intent.putExtra("Intent_filmName", filesList[position]);
+                        intent.putExtra(INTENT_FILM_NAME, getFilmsArray()[position].getFilmName());
+                        intent.putExtra(INTENT_FILM_PATH, getFilmsArray()[position].getPath());
                         startActivity(intent);
                     }
 
@@ -83,6 +89,16 @@ public class FilmsFragment extends Fragment {
             list.add(i, filmTemp);
         }
         return list;
+    }
+
+    private Film[] getFilmsArray() {
+        File files = new File(pathname);
+        filesList = files.listFiles();
+        Film[] array = new Film[filesList.length];
+        for (int i = 0; i < filesList.length; i++) {
+            array[i] = new Film(filesList[i]);
+        }
+        return array;
     }
 
 }

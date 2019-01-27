@@ -16,6 +16,14 @@
         android:textStyle="bold" />
 
     <TextView
+        android:id="@+id/film_path"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/film_path_error"
+        android:textColor="@color/colorSecondaryText"
+        android:textStyle="bold" />
+
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/subtitles_file"
@@ -28,5 +36,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:spinnerMode="dialog"></Spinner>
+
+    <Button
+        android:id="@+id/play_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/play"
+        android:textAllCaps="true"
+        android:textStyle="bold"
+        android:layout_gravity="center" />
 
 </LinearLayout>

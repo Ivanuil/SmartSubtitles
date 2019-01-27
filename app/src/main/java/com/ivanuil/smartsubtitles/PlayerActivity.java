@@ -1,8 +1,12 @@
 package com.ivanuil.smartsubtitles;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaFormat;
+import android.media.audiofx.Equalizer;
 import android.os.Environment;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Window;
@@ -10,6 +14,8 @@ import android.view.WindowManager;
 import android.widget.MediaController;
 import android.widget.Toast;
 import android.widget.VideoView;
+
+import java.util.Locale;
 
 public class PlayerActivity extends AppCompatActivity {
 
@@ -40,6 +46,9 @@ public class PlayerActivity extends AppCompatActivity {
 
         VideoView videoView = (VideoView) findViewById(R.id.video_view);
         videoView.setVideoPath(videoSource);
+        startActivity(new Intent(Settings.ACTION_CAPTIONING_SETTINGS));
+        videoView.addSubtitleSource(getResources().openRawResource(R.raw.subs),
+                MediaFormat.createSubtitleFormat("text/vtt", Locale.ENGLISH.getLanguage()));
         videoView.setMediaController(new MediaController(this));
         videoView.requestFocus();
         videoView.start();

@@ -11,14 +11,18 @@
         <item name="android:textColorPrimary">@color/colorMainText</item>
 
         <item name="android:windowBackground">@color/colorPrimary</item>
+        <item name="colorButtonNormal">@color/colorAccent</item>
 
         <item name="android:textColorSecondaryInverse">@android:color/holo_orange_dark</item>
-        <item name="colorButtonNormal">#05F005</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar.FullScreen">
+        <item name="android:windowFullscreen">true</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

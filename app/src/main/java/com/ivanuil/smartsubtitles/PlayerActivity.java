@@ -31,9 +31,9 @@ public class PlayerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        //this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-        //        WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_player);
+
+        //Manage Prefences and Intents
         INTENT_FILM_NAME = getString(R.string.INTENT_FILM_NAME);
         INTENT_FILM_PATH = getString(R.string.INTENT_FILM_PATH);
         INTENT_SUB_PATH = getString(R.string.INTENT_SUB_PATH);
@@ -44,6 +44,7 @@ public class PlayerActivity extends AppCompatActivity {
                 + getIntent().getStringExtra(INTENT_FILM_PATH);
         Toast.makeText(this, "Video: " + videoSource, Toast.LENGTH_SHORT).show();
 
+        //Manage VideoView and Media Controller
         VideoView videoView = (VideoView) findViewById(R.id.video_view);
         videoView.setVideoPath(videoSource);
         startActivity(new Intent(Settings.ACTION_CAPTIONING_SETTINGS));

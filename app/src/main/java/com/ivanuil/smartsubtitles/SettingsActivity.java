@@ -16,6 +16,8 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+
+        //Manage Preferences
         APP_PREFERENCES = getString(R.string.APP_PREFERENCES);
         APP_PREFERENCES_FILMS_FOLDER = getString(R.string.APP_PREFERENCES_FILMS_FOLDER);
 

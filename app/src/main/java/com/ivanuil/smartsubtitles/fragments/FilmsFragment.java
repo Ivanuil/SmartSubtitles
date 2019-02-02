@@ -36,6 +36,7 @@ public class FilmsFragment extends Fragment {
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        // Manage Preferences and Intents
         INTENT_FILM_NAME = getString(R.string.INTENT_FILM_NAME);
         INTENT_FILM_PATH = getString(R.string.INTENT_FILM_PATH);
 

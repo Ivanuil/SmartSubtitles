@@ -13,12 +13,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ivanuil.smartsubtitles.classes.Subtitle;
-
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 public class PlayerSetterActivity extends AppCompatActivity {
 
@@ -39,6 +34,8 @@ public class PlayerSetterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player_setter);
+
+        //Manage Prefences anf Intents
         APP_PREFERENCES = getString(R.string.APP_PREFERENCES);
         APP_PREFERENCES_FILMS_FOLDER = getString(R.string.APP_PREFERENCES_FILMS_FOLDER);
         INTENT_FILM_NAME = getString(R.string.INTENT_FILM_NAME);

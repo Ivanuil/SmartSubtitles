@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 
 public class PlayerForm extends JFrame{
     private JButton backButton;
@@ -12,6 +11,7 @@ public class PlayerForm extends JFrame{
     private JButton forwardButton;
     private JPanel playerPanel;
     private JPanel panel;
+    private JSlider timeSlider;
 
     boolean running = true;
 
@@ -28,6 +28,13 @@ public class PlayerForm extends JFrame{
         });
         backButton.addActionListener(e -> mediaPlayer.mediaPlayer().controls().skipTime(-1000));
         forwardButton.addActionListener(e -> mediaPlayer.mediaPlayer().controls().skipTime(1000));
+        timeSlider.addChangeListener(e -> {
+            double sliderPosition = (double) (timeSlider.getValue() - timeSlider.getMinimum()) /
+                    (timeSlider.getMaximum() - timeSlider.getMinimum());
+            long videoLength = mediaPlayer.mediaPlayer().status().length();
+            long time = (long) (videoLength * sliderPosition);
+            mediaPlayer.mediaPlayer().controls().setTime(time);
+        });
 
         this.setContentPane(panel);
 

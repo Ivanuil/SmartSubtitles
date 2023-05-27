@@ -1,9 +1,13 @@
+import uk.co.caprica.vlcj.player.base.MediaPlayer;
+import uk.co.caprica.vlcj.player.base.MediaPlayerEventAdapter;
 import uk.co.caprica.vlcj.player.component.EmbeddedMediaPlayerComponent;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.FileNotFoundException;
+import java.util.Date;
 
 public class PlayerForm extends JFrame{
     private JButton backButton;
@@ -12,8 +16,10 @@ public class PlayerForm extends JFrame{
     private JPanel playerPanel;
     private JPanel panel;
     private JSlider timeSlider;
-
-    boolean running = true;
+    private JPanel subtitlesPanel;
+    private final JTextPane originSubtitlesPane = new JTextPane();
+    private SubtitlesParser originSubtitlesParser;
+    SubtitlesParser.SubtitlesLine originSubtitlesLine;
 
     EmbeddedMediaPlayerComponent mediaPlayer = new EmbeddedMediaPlayerComponent();
 
@@ -21,7 +27,7 @@ public class PlayerForm extends JFrame{
         playerPanel.setLayout(new BorderLayout());
         playerPanel.add(mediaPlayer, BorderLayout.CENTER);
         playPauseButton.addActionListener(e -> {
-            if (running)
+            if (mediaPlayer.mediaPlayer().status().isPlaying())
                 mediaPlayer.mediaPlayer().controls().pause();
             else
                 mediaPlayer.mediaPlayer().controls().play();
@@ -35,6 +41,9 @@ public class PlayerForm extends JFrame{
             long time = (long) (videoLength * sliderPosition);
             mediaPlayer.mediaPlayer().controls().setTime(time);
         });
+        timeSlider.setValue(0);
+        subtitlesPanel.setLayout(new BorderLayout());
+        subtitlesPanel.add(originSubtitlesPane);
 
         this.setContentPane(panel);
 
@@ -48,11 +57,30 @@ public class PlayerForm extends JFrame{
         });
         pack();
         setVisible(true);
+
+        mediaPlayer.mediaPlayer().events().addMediaPlayerEventListener(new MediaPlayerEventAdapter() {
+            @Override
+            public void timeChanged(MediaPlayer mediaPlayer, long newTime) {
+                if (originSubtitlesLine != null && originSubtitlesLine.startTime() <= newTime
+                        && newTime <= originSubtitlesLine.endTime())
+                    return;
+
+                originSubtitlesLine = originSubtitlesParser.getLine(newTime);
+                if (originSubtitlesLine != null) {
+                    originSubtitlesPane.setVisible(true);
+                    originSubtitlesPane.setText(originSubtitlesLine.line());
+                } else
+                    originSubtitlesPane.setVisible(false);
+            }
+        });
     }
 
     public void playMedia(String filename) {
         mediaPlayer.mediaPlayer().media().play(filename);
-        pack();
+    }
+
+    public void playSubtitles(String filename) throws FileNotFoundException {
+        originSubtitlesParser = new SubtitlesParser(filename);
     }
 
 }

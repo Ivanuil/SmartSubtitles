@@ -3,18 +3,11 @@ import java.io.FileNotFoundException;
 import java.util.*;
 
 public class SubtitlesParser {
-    private final File file;
     private final Scanner scanner;
-    private SubtitlesLine nextLine;
     private final ArrayList<SubtitlesLine> lines = new ArrayList<>();
 
-    public SubtitlesParser(File file) throws FileNotFoundException {
-        this.file = file;
-        scanner = new Scanner(file);
-    }
-
     public SubtitlesParser(String filename) throws FileNotFoundException {
-        this.file = new File(filename);
+        File file = new File(filename);
         scanner = new Scanner(file);
     }
 
@@ -52,7 +45,7 @@ public class SubtitlesParser {
 
     private static long getTimeAsLong(String time) {
         Scanner scan = new Scanner(time);
-        scan.useDelimiter(":|\\,|\\n");
+        scan.useDelimiter("[:,\\n]");
         long hours = scan.nextInt();
         long minutes = hours * 24 + scan.nextInt();
         long seconds = minutes * 60 + scan.nextInt();

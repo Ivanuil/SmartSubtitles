@@ -1,5 +1,4 @@
 import me.bush.translator.Language;
-import me.bush.translator.Translator;
 import uk.co.caprica.vlcj.player.base.MediaPlayer;
 import uk.co.caprica.vlcj.player.base.MediaPlayerEventAdapter;
 import uk.co.caprica.vlcj.player.component.EmbeddedMediaPlayerComponent;
@@ -18,13 +17,13 @@ public class PlayerForm extends JFrame{
     private JPanel panel;
     private JSlider timeSlider;
     private JPanel subtitlesPanel;
-    private final JTextPane originSubtitlesPane = new JTextPane();
-    private final JTextPane translatedSubtitlesPane = new JTextPane();
     private SubtitlesParser originSubtitlesParser;
     SubtitlesParser.SubtitlesLine originSubtitlesLine;
     private SubtitlesTranslator translator = null;
 
     EmbeddedMediaPlayerComponent mediaPlayer = new EmbeddedMediaPlayerComponent();
+    SubtitlesPanel originalSubtitlesPanel = new SubtitlesPanel();
+    SubtitlesPanel translationSubtitlesPanel = new SubtitlesPanel();
 
     public PlayerForm() {
         playerPanel.setLayout(new BorderLayout());
@@ -46,8 +45,8 @@ public class PlayerForm extends JFrame{
         });
         timeSlider.setValue(0);
         subtitlesPanel.setLayout(new BoxLayout(subtitlesPanel, BoxLayout.Y_AXIS));
-        subtitlesPanel.add(originSubtitlesPane);
-        subtitlesPanel.add(translatedSubtitlesPane);
+        subtitlesPanel.add(originalSubtitlesPanel);
+        subtitlesPanel.add(translationSubtitlesPanel);
 
         this.setContentPane(panel);
 
@@ -73,14 +72,11 @@ public class PlayerForm extends JFrame{
 
                 originSubtitlesLine = originSubtitlesParser.getLine(newTime);
                 if (originSubtitlesLine != null) {
-                    originSubtitlesPane.setVisible(true);
-                    originSubtitlesPane.setText(originSubtitlesLine.line());
-                    if (translator != null) {
-                        translatedSubtitlesPane.setVisible(true);
-                        translatedSubtitlesPane.setText(translator.translate(originSubtitlesLine).line());
-                    }
-                } else
-                    originSubtitlesPane.setVisible(true);  // TODO revert to 'false'
+                    originalSubtitlesPanel.display(originSubtitlesLine);
+                    if (translator != null)
+                        translationSubtitlesPanel.display(translator.translate(originSubtitlesLine));
+                }
+                pack();
             }
         });
     }

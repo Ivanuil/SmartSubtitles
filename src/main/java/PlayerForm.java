@@ -61,8 +61,6 @@ public class PlayerForm extends JFrame{
         pack();
         setVisible(true);
 
-        translator = new SubtitlesTranslator(Language.AUTO, Language.RUSSIAN);
-
         mediaPlayer.mediaPlayer().events().addMediaPlayerEventListener(new MediaPlayerEventAdapter() {
             @Override
             public void timeChanged(MediaPlayer mediaPlayer, long newTime) {
@@ -76,7 +74,6 @@ public class PlayerForm extends JFrame{
                     if (translator != null)
                         translationSubtitlesPanel.display(translator.translate(originSubtitlesLine));
                 }
-                pack();
             }
         });
     }

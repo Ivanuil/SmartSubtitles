@@ -1,3 +1,5 @@
+import me.bush.translator.Language;
+import me.bush.translator.Translator;
 import uk.co.caprica.vlcj.player.base.MediaPlayer;
 import uk.co.caprica.vlcj.player.base.MediaPlayerEventAdapter;
 import uk.co.caprica.vlcj.player.component.EmbeddedMediaPlayerComponent;
@@ -7,7 +9,6 @@ import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.FileNotFoundException;
-import java.util.Date;
 
 public class PlayerForm extends JFrame{
     private JButton backButton;
@@ -18,8 +19,10 @@ public class PlayerForm extends JFrame{
     private JSlider timeSlider;
     private JPanel subtitlesPanel;
     private final JTextPane originSubtitlesPane = new JTextPane();
+    private final JTextPane translatedSubtitlesPane = new JTextPane();
     private SubtitlesParser originSubtitlesParser;
     SubtitlesParser.SubtitlesLine originSubtitlesLine;
+    private SubtitlesTranslator translator = null;
 
     EmbeddedMediaPlayerComponent mediaPlayer = new EmbeddedMediaPlayerComponent();
 
@@ -42,8 +45,9 @@ public class PlayerForm extends JFrame{
             mediaPlayer.mediaPlayer().controls().setTime(time);
         });
         timeSlider.setValue(0);
-        subtitlesPanel.setLayout(new BorderLayout());
+        subtitlesPanel.setLayout(new BoxLayout(subtitlesPanel, BoxLayout.Y_AXIS));
         subtitlesPanel.add(originSubtitlesPane);
+        subtitlesPanel.add(translatedSubtitlesPane);
 
         this.setContentPane(panel);
 
@@ -58,6 +62,8 @@ public class PlayerForm extends JFrame{
         pack();
         setVisible(true);
 
+        translator = new SubtitlesTranslator(Language.AUTO, Language.RUSSIAN);
+
         mediaPlayer.mediaPlayer().events().addMediaPlayerEventListener(new MediaPlayerEventAdapter() {
             @Override
             public void timeChanged(MediaPlayer mediaPlayer, long newTime) {
@@ -69,8 +75,12 @@ public class PlayerForm extends JFrame{
                 if (originSubtitlesLine != null) {
                     originSubtitlesPane.setVisible(true);
                     originSubtitlesPane.setText(originSubtitlesLine.line());
+                    if (translator != null) {
+                        translatedSubtitlesPane.setVisible(true);
+                        translatedSubtitlesPane.setText(translator.translate(originSubtitlesLine).line());
+                    }
                 } else
-                    originSubtitlesPane.setVisible(false);
+                    originSubtitlesPane.setVisible(true);  // TODO revert to 'false'
             }
         });
     }
@@ -81,6 +91,10 @@ public class PlayerForm extends JFrame{
 
     public void playSubtitles(String filename) throws FileNotFoundException {
         originSubtitlesParser = new SubtitlesParser(filename);
+    }
+
+    public void addTranslator(SubtitlesTranslator translator) {
+        this.translator = translator;
     }
 
 }

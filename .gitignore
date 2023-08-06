@@ -40,3 +40,5 @@ build/
 ### Temporary and test files ###
 src/main/java/video.mkv
 src/main/java/subtitles.srt
+*.mkv
+*.src

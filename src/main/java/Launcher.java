@@ -6,6 +6,7 @@ public class Launcher {
         player.setVisible(true);
         player.playMedia("C:\\Users\\ivo-p\\dev\\SmartSubtitles\\src\\main\\java\\video.mkv");
         player.playSubtitles("C:\\Users\\ivo-p\\dev\\SmartSubtitles\\src\\main\\java\\subtitles.srt");
+
     }
 
 }
